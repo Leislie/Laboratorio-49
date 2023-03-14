@@ -1,0 +1,85 @@
+---
+title: "Laboratorio49-MD"
+author: "Leislie R. Manjarrez O."
+date: "2023-03-14"
+output: html_document
+---
+
+Hecho con gusto por Leislie R. Manjarrez O.
+
+Laboratorio 49- Diagrama de cajas y bigotes (boxplot) con ggplot2
+
+Instalar paqueterias
+install.packages("gapminder")
+install.packages("ggplot2")
+
+Llamar la librerias
+```{r}
+library(gapminder)
+library(ggplot2)
+```
+
+Cargar los datos al entorno
+```{r}
+data("gapminder")
+```
+
+Filtrado por año 2007
+```{r}
+gapminder2007 <- gapminder[gapminder$year == '2007',]
+```
+
+Crear un diagrama de caja y bigotes o boxplot solo con el eje y
+```{r}
+ggplot(data = gapminder2007,
+       mapping = aes(y = lifeExp))+
+  geom_boxplot()
+```
+
+Crear un diagrama de caja y bigotes o boxplot con ambos ejes
+```{r}
+ggplot(data = gapminder2007,
+       mapping = aes(x= continent,
+         y = lifeExp))+
+  geom_boxplot()
+```
+
+Marcar los datos atípicos en el boxplot
+```{r}
+ggplot(data = gapminder2007,
+       mapping = aes(x= continent,
+                     y = lifeExp))+
+  geom_boxplot(outlier.colour = "red",
+               outlier.shape = 8,
+               outlier.size = 4)
+```
+
+Hacer el boxplot de forma vertical
+```{r}
+ggplot(data = gapminder2007,
+       mapping = aes(x= continent,
+                     y = lifeExp))+
+  geom_boxplot(outlier.colour = "red",
+               outlier.shape = 8,
+               outlier.size = 4) +
+  coord_flip()
+```
+
+Marcar datos atipicos y todas las observaciones
+```{r}
+ggplot(data = gapminder2007,
+       mapping = aes(x= continent,
+                     y = lifeExp))+
+  geom_boxplot()+
+  geom_jitter(shape =16,
+              position = position_jitter(0.2))
+```
+
+Colorear cada uno de los continentes
+```{r}
+ggplot(data = gapminder2007,
+       mapping = aes(x= continent,
+                     y = lifeExp,
+                     fill = continent))+
+  geom_boxplot()
+```
